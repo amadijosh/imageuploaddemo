@@ -1,13 +1,13 @@
 <html>
 <head>
-	<title>Test</title>
+   <title>Test</title>
 </head>
 <body>
 
 <form action="pi.php" method="POST" enctype="multipart/form-data" id="mf"> 
-	<input type="file" name="data[]" multiple="multiple" id="files_" />
-	<input type="text" name="caption" value="Image caption goes in here" />  
-	<input type="submit" />
+   <input type="file" name="data[]" multiple="multiple" id="files_" />
+   <input type="text" name="caption" value="Image caption goes in here" />  
+   <input type="submit" />
 </form>
 <input type="button" id="submit" />
 
@@ -17,27 +17,28 @@
    $(document).ready(function(){
 
 
-   	   $("#submit").click(function(){
-   	   		var fd = new FormData();
-   	   		var files =document.getElementById("files_").files;
-   	   		for(var x in files){
-   	   			
-   	   			fd.append(files[x].name ,files[x]);
-   	   			//console.log(x , files[x],fd);
-   	   		}
-   	   		$.ajax({
-   	   			url:"pi.php",
-   	   			type:"POST",
-   	   			data:fd,
-   	   			contentType:false,
-   	   			processData: false,
-   	   	        success:function(d){
-   	   	        	console.log(d);
-   	   	        }
-   	   		});
-   	   		//$.post("pi.php",{"d":fd});
-   	   		//console.log(files,fd);
-   	   });
+         $("#submit").click(function(){
+               var fd = new FormData();
+               var files =document.getElementById("files_").files;
+               for(var x in files){
+                  
+                  fd.append(files[x].name ,files[x]);
+                  //console.log(x , files[x],fd);
+               }
+               fd.append('caption',"Caption text here");
+               $.ajax({
+                  url:"pi.php",
+                  type:"POST",
+                  data:fd,
+                  contentType:false,
+                  processData: false,
+                    success:function(d){
+                     console.log(d);
+                    }
+               });
+               //$.post("pi.php",{"d":fd});
+               //console.log(files,fd);
+         });
 
    
    });
